@@ -13,14 +13,14 @@
   </div>
 
   <table class="table table-striped">
-    <tr *ngFor="let row of fixedrows">
+    <tr *ngFor="let row of fixedRows">
       <th *ngFor="let val of row">
         {{val}}
       </th>
     </tr>
     <tr *ngFor="let row of values; let id = index">
       <td contenteditable="true"
-          *ngFor="let val of row; let col = index"
+          *ngFor="let val of row; let col= index"
           (keyup)="changeValue(id, col, $event)">
         {{val}}
       </td>

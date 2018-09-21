@@ -13,7 +13,7 @@ export class AppComponent {
   title = 'app';
 
   data: AOA = [[], []];
-  fixedrows: AOA = [[], []];
+  fixedRows: AOA = [[], []];
   values: AOA = [[], []];
 
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
@@ -35,7 +35,7 @@ export class AppComponent {
 
       /* save data */
       this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-      this.fixedrows = this.data.slice(0, 3);
+      this.fixedRows = this.data.slice(0, 3);
       this.values = this.data.slice(3);
     };
     reader.readAsBinaryString(target.files[0]);
@@ -43,7 +43,7 @@ export class AppComponent {
   }
 
   export(): void {
-    this.data = this.fixedrows.concat(this.values);
+    this.data = this.fixedRows.concat(this.values);
     /* generate worksheet */
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
 
@@ -56,6 +56,8 @@ export class AppComponent {
   }
 
   changeValue(i: number, j: number, event: any) {
+    console.log(event)
+    console.log(`i: ${i} j: ${j} old value: ${this.values[i][j]} new value: ${event.target.textContent}`)
     const newValue = event.target.textContent;
     this.values[i][j] = newValue;
   }
