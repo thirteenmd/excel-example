@@ -18,9 +18,10 @@
         {{val}}
       </th>
     </tr>
-    <tr *ngFor="let row of values">
+    <tr *ngFor="let row of values; let id = index">
       <td contenteditable="true"
-          *ngFor="let val of row">
+          *ngFor="let val of row; let col = index"
+          (keyup)="changeValue(id, col, $event)">
         {{val}}
       </td>
     </tr>

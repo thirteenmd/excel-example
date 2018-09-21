@@ -43,6 +43,7 @@ export class AppComponent {
   }
 
   export(): void {
+    this.data = this.fixedrows.concat(this.values);
     /* generate worksheet */
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
 
@@ -52,5 +53,10 @@ export class AppComponent {
 
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
+  }
+
+  changeValue(i: number, j: number, event: any) {
+    const newValue = event.target.textContent;
+    this.values[i][j] = newValue;
   }
 }
