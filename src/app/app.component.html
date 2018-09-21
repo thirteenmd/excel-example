@@ -1,13 +1,31 @@
 <div style="text-align:center">
 
+  <div class="input-group mb-3 container">
+    <div class="custom-file">
+      <input type="file"
+             class="custom-file-input"
+             id="inputGroupFile01"
+             (change)="onFileChange($event)"
+             multiple="false">
+      <label class="custom-file-label"
+             for="inputGroupFile01">Choose file</label>
+    </div>
+  </div>
 
-  <input type="file" (change)="onFileChange($event)" multiple="false" />
-	<table class="sjs-table">
-		<tr *ngFor="let row of data">
-			<td *ngFor="let val of row">
-				{{val}}
-			</td>
-		</tr>
-	</table>
-	<button (click)="export()">Export!</button>
+  <table class="table table-striped">
+    <tr *ngFor="let row of fixedrows">
+      <th *ngFor="let val of row">
+        {{val}}
+      </th>
+    </tr>
+    <tr *ngFor="let row of values">
+      <td contenteditable="true"
+          *ngFor="let val of row">
+        {{val}}
+      </td>
+    </tr>
+  </table>
 
+  <button (click)="export()"
+          class="btn btn-success">Export!</button>
+</div>
