@@ -12,7 +12,6 @@ type AOA = any[][];
 export class AppComponent {
   title = 'app';
 
-  data: AOA = [[], []];
   fixedRows: AOA = [[], []];
   values: AOA = [[], []];
 
@@ -21,6 +20,8 @@ export class AppComponent {
 
   onFileChange(evt: any) {
     /* wire up file reader */
+    let data = [[], []];
+
     const target: DataTransfer = <DataTransfer>(evt.target);
     if (target.files.length !== 1) throw new Error('Cannot use multiple files');
     const reader: FileReader = new FileReader();
@@ -34,18 +35,18 @@ export class AppComponent {
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
       /* save data */
-      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-      this.fixedRows = this.data.slice(0, 3);
-      this.values = this.data.slice(3);
+      data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+      this.fixedRows = data.slice(0, 3);
+      this.values = data.slice(3);
     };
     reader.readAsBinaryString(target.files[0]);
 
   }
 
   export(): void {
-    this.data = this.fixedRows.concat(this.values);
+    let data = this.fixedRows.concat(this.values);
     /* generate worksheet */
-    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
 
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
