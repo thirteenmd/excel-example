@@ -56,9 +56,8 @@ export class AppComponent {
   }
 
   changeValue(i: number, j: number, event: any) {
-    console.log(event)
-    console.log(`i: ${i} j: ${j} old value: ${this.values[i][j]} new value: ${event.target.textContent}`)
     const newValue = event.target.textContent;
     this.values[i][j] = newValue;
   }
+
 }
